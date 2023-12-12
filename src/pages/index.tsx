@@ -1,118 +1,78 @@
-import Image from 'next/image'
-import { Inter } from 'next/font/google'
+import Image from 'next/image';
+import Head from 'next/head';
+import Link from 'next/link';
+import data from '@/data/projects.json';
+import { Inter } from 'next/font/google';
+import LoadingSpinner from '../components/LoadingSpinner';
+import { FC, useState } from 'react';
 
-const inter = Inter({ subsets: ['latin'] })
+const Home: FC = () => {
+  const projects = data;
+  if(!projects) return <LoadingSpinner/>;
+    return (
+        <div className="flex flex-col min-h-screen">
+            <Head>
+                <title>Home | Rick Cruz</title>
+                <link rel="icon" href="/favicon.ico" />
+            </Head>
 
-export default function Home() {
-  return (
-    <main
-      className={`flex min-h-screen flex-col items-center justify-between p-24 ${inter.className}`}
-    >
-      <div className="z-10 max-w-5xl w-full items-center justify-between font-mono text-sm lg:flex">
-        <p className="fixed left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto  lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-zinc-800/30">
-          Get started by editing&nbsp;
-          <code className="font-mono font-bold">src/pages/index.tsx</code>
-        </p>
-        <div className="fixed bottom-0 left-0 flex h-48 w-full items-end justify-center bg-gradient-to-t from-white via-white dark:from-black dark:via-black lg:static lg:h-auto lg:w-auto lg:bg-none">
-          <a
-            className="pointer-events-none flex place-items-center gap-2 p-8 lg:pointer-events-auto lg:p-0"
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{' '}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className="dark:invert"
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
+            <header className="bg-gradient-to-t from-slate-700 to-slate-800 text-gray-100 p-6">
+                <h1 className="text-3xl font-semibold">Rick Cruz, Master of Science in Computer Science</h1>
+                <p className="text-2xl">Software Engineer | Full-Stack Developer</p>
+            </header>
+
+            <nav className="bg-gradient-to-t from-slate-600 to-slate-700 text-lg text-white p-4 flex justify-center space-x-4 scroll-smooth">
+                <Link href="/#about" className="hover:underline">About</Link>
+                <Link href="/#portfolio" className="hover:underline">Portfolio</Link>
+                <Link href="/#contact" className="hover:underline">Contact</Link>
+            </nav>
+
+            <main className="flex-grow p-8 bg-stone-200">
+
+                <section id="about" className="my-6">
+                  <h2 className="text-2xl text-gray-950 font-semibold mb-2">About Me</h2>
+                  <div className="py-2 grid grid-col-2 justify-items-center md:flex md:items-start ">
+                  <Image src="/headshot.png" width={150} height={200} alt="headshot image" className="flex object-contain border-2 border-slate-600 rounded-3xl mb-4 md:mr-4" />
+                  <p>
+                    I am a Software Engineer with a Master of Science in Computer Science from Portland State University. I bring a rich blend of technical knowledge and hands-on experience. Proficient in C/C++, Python, Java, JavaScript, and SQL, I excel in creating creating practical and efficient software solutions. I have developed a strong foundation in using frameworks like React and technologies such as OpenCV and TensorFlow through project-based learning. I pride myself on my ability to adapt to new technologies and methodologies to stay at the forefront of software development.
+
+                    <br/><br/>
+                    I have demonstrated ability to conduct extensive research, analyze data, and apply statistical techniques to identify trends and make accurate predictions. With my strong experience in implementing complex models, presenting findings to stakeholders, and showcasing the potential value of projects I am passionate about leveraging technology to drive innovation and deliver impactful solutions.
+                  </p>
+                  </div>
+                </section>
+
+                <section id="portfolio" className="my-8">
+                  <h2 className="text-2xl text-gray-950 font-semibold mb-4">Projects</h2>
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                    {projects?.map((project:Project, index) => (
+                    <div className="lg:p-1 p-1" key={index}>
+                      <div className="flex flex-col justify-center items-center">
+                      <Image src={project.image} alt={project.name} width={100} height={100} className="object-cover h-24 w-24 border-2 rounded-xl border-slate-600 "/>
+                      <h3 className="my-1 text-lg font-semibold">{project.name}</h3>
+                      </div>
+                    <p className="mt-1 text-center md:h-48 lg:h-72 xl:h-56 2xl:h-48 ">{project.description}</p>
+                    <div className="lg:my-2 md:my-4 my-8 text-center"><Link href={project.url} 
+                    className="bg-teal-800 text-white py-2 px-4 rounded-2xl hover:bg-teal-900">
+                      View
+                    </Link>
+                    </div>
+                    </div>
+                      ))}
+                  </div>
+                </section>
+                <section id="contact" className="my-8">
+                    <h2 className="text-2xl text-gray-950 font-semibold mb-4">Contact</h2>
+                <p>Connect with me on <Link href={process.env.NEXT_PUBLIC_LINKEDIN_URL || "#"} className="hover:underline font-semibold text-blue-700">LinkedIn</Link>, <Link  href={process.env.NEXT_PUBLIC_GITHUB_URL || "#"} className="hover:underline font-semibold text-blue-700">GitHub</Link> or <Link href={`mailto:${process.env.NEXT_PUBLIC_EMAIL || "example@example.com"}`} className="hover:underline font-semibold text-blue-700">Email</Link>
+                </p>
+                </section>
+            </main>
+
+            <footer className="bg-gradient-to-t from-slate-900 to-slate-600 text-white p-6 text-center">
+                <p>© 2023 Rick Cruz. All rights reserved.</p>
+            </footer>
         </div>
-      </div>
+    );
+};
 
-      <div className="relative flex place-items-center before:absolute before:h-[300px] before:w-[480px] before:-translate-x-1/2 before:rounded-full before:bg-gradient-radial before:from-white before:to-transparent before:blur-2xl before:content-[''] after:absolute after:-z-20 after:h-[180px] after:w-[240px] after:translate-x-1/3 after:bg-gradient-conic after:from-sky-200 after:via-blue-200 after:blur-2xl after:content-[''] before:dark:bg-gradient-to-br before:dark:from-transparent before:dark:to-blue-700/10 after:dark:from-sky-900 after:dark:via-[#0141ff]/40 before:lg:h-[360px]">
-        <Image
-          className="relative dark:drop-shadow-[0_0_0.3rem_#ffffff70] dark:invert"
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
-
-      <div className="mb-32 grid text-center lg:max-w-5xl lg:w-full lg:mb-0 lg:grid-cols-4 lg:text-left">
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Docs{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Find in-depth information about Next.js features and API.
-          </p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Learn{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Learn about Next.js in an interactive course with&nbsp;quizzes!
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Templates{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Discover and deploy boilerplate example Next.js&nbsp;projects.
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Deploy{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
-    </main>
-  )
-}
+export default Home;
