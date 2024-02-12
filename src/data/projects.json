@@ -15,7 +15,7 @@
 		"name": "Bitcoin Buy Classifier",
 		"description": "Developed a machine learning model using data analysis and statistical methods to identify optimal buying opportunities in Bitcoin markets. Achieved enhanced prediction accuracy and effectively communicated the project's value to stakeholders.",
 		"url":"https://github.com/rickpdx/buy_classifier",
-		"image": "btc.svg"
+		"image": "btcWide.svg"
 	},
 	{
 		"name": "Computer Vision",
