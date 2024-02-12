@@ -7,9 +7,9 @@
 	},
 	{
 		"name": "NBA Sentiment Analysis",
-		"description": "Conducted NLP analysis on NBA subreddit data using VADER and TextBlob to assess player and team sentiments. Analyzed and visualized sentiment trends, improved tool accuracy, and presented the potential of sentiment analysis to stakeholders.",
+		"description": "Conducted NLP analysis on NBA subreddit data using VADER and TextBlob to assess player and team sentiments for an early portion of the 2021-2022 season. Analyzed and visualized sentiment trends, improved tool accuracy, and presented the potential of sentiment analysis to stakeholders.",
 		"url":"https://github.com/rickpdx/NLP-NBA-Sentiment-Analysis",
-		"image": "hooper.svg"
+		"image": "hooperWide.svg"
 	},
 	{
 		"name": "Bitcoin Buy Classifier",

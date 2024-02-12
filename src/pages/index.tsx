@@ -48,7 +48,7 @@ const Home: FC = () => {
                     {projects?.map((project:Project, index) => (
                     <div className="lg:p-1 p-1" key={index}>
                       <div className="flex flex-col justify-center items-center">
-                      <Image src={project.image} alt={project.name} width={100} height={100} className="object-cover h-24 w-24 border-2 rounded-xl border-slate-600 "/>
+                      <Image src={project.image} alt={project.name} width={200} height={100} className="object-cover h-24 w-36 border-2 rounded-xl border-slate-600 "/>
                       <h3 className="my-1 text-lg font-semibold">{project.name}</h3>
                       </div>
                     <p className="mt-1 text-center md:h-48 lg:h-72 xl:h-56 2xl:h-48 ">{project.description}</p>
